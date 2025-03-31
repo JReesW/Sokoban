@@ -1,0 +1,9 @@
+.XXXXX...
+.X...XXXX
+.X...X..X
+.XX....GX
+XXX.XXXGX
+X.B.X.XGX
+X.BBX.XXX
+XP..X....
+XXXXX....
