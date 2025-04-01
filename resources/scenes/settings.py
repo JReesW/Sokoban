@@ -1,7 +1,4 @@
-import pygame
-from pygame import Surface, display
-
-from mothic import Scene, colors, director
+from mothic import Scene, colors, director, Surface, display
 from mothic.visuals import text
 
 from ui.button import Button
@@ -12,12 +9,10 @@ class SettingsScene(Scene):
         super().__init__()
 
         centerx = display.get_surface().get_rect().centerx
-
-        from scenes.main_menu import MainMenuScene
         
         self.cake.insert_many([
-            Button("Reset Progress", (200, 60), center=(centerx, 400)).set_func(self.reset_data),
-            Button("Return", (200, 60), center=(centerx, 600)).set_func(director.set_scene_uninitialized, MainMenuScene)
+            Button("Reset Progress", (200, 60), center=(centerx, 400), onclick=self.reset_data),
+            Button("Return", (200, 60), center=(centerx, 600), onclick=lambda: director.set_scene("MainMenuScene"))
         ])
 
     def handle_events(self, events):

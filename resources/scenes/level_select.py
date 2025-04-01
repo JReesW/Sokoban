@@ -1,11 +1,9 @@
 import pygame
-from pygame import Surface, display
 
-from mothic import Scene, colors, director
+from mothic import Scene, colors, director, Surface, display
 from mothic.visuals import text
 
 from ui.button import Button
-from scenes.level import LevelScene
 
 
 class LevelSelectScene(Scene):
@@ -23,12 +21,11 @@ class LevelSelectScene(Scene):
                 color = colors.lime if completed[level - 1] else colors.black
 
                 self.cake.insert(
-                    Button(str(level), (80, 80), (centerx + x*150, 500 + y*150), color).set_func(director.set_scene_uninitialized, LevelScene, level)
+                    Button(str(level), (80, 80), (centerx + x*150, 500 + y*150), color, onclick=lambda l=level: director.set_scene("LevelScene", l))
                 )
         
-        from scenes.main_menu import MainMenuScene
         self.cake.insert(
-            Button("Return to Menu", (200, 60), (centerx, 800)).set_func(director.set_scene_uninitialized, MainMenuScene)
+            Button("Return to Menu", (200, 60), (centerx, 800), onclick=lambda: director.set_scene("MainMenuScene"))
         )
 
     def handle_events(self, events):
@@ -37,8 +34,7 @@ class LevelSelectScene(Scene):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    from scenes import MainMenuScene
-                    director.set_scene(MainMenuScene())
+                    director.set_scene("MainMenuScene")
 
     def update(self):
         self.cake.update()

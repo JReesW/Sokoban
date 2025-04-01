@@ -1,10 +1,5 @@
-import pygame
-from pygame import Surface, display
-
-from mothic import Scene, colors, director
+from mothic import Scene, colors, director, Surface
 from mothic.visuals import text
-
-from ui.button import Button
 
 
 class WinScene(Scene):
@@ -27,8 +22,7 @@ class WinScene(Scene):
     def update(self):
         self.time_left -= 1
         if self.time_left == 0:
-            from scenes.level_select import LevelSelectScene
-            director.set_scene(LevelSelectScene())
+            director.set_scene("LevelSelectScene")
 
     def render(self, surface: Surface):
         self.bg_scene.render(surface)

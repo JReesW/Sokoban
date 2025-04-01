@@ -1,13 +1,10 @@
 import pygame
-from pygame import Surface, display
 
-from mothic import Scene, colors, director
+from mothic import Scene, colors, director, Surface
 from mothic.visuals import text
 from mothic.dsa.cake import Cake
 
-from ui.button import Button
-from things import load_level, Wall, Goal, Box
-from scenes.win import WinScene
+from things import load_level, Wall, Box
 
 
 class LevelScene(Scene):
@@ -31,8 +28,7 @@ class LevelScene(Scene):
                 elif event.key == pygame.K_r:
                     self.init_state()
                 elif event.key == pygame.K_ESCAPE:
-                    from scenes.level_select import LevelSelectScene
-                    director.set_scene(LevelSelectScene())
+                    director.set_scene("LevelSelectScene")
 
     def update(self):
         self.cake.update()
@@ -67,7 +63,7 @@ class LevelScene(Scene):
         box_coords = {box.coords for box in self.boxes}
 
         if len(goal_coords - box_coords) == 0:
-            director.set_scene(WinScene(self))
+            director.set_scene("WinScene", self)
     
     def box_colors(self):
         goal_coords = {goal.coords for goal in self.goals}
