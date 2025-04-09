@@ -1,6 +1,6 @@
 import pygame
 
-from mothic import Scene, colors, director, Surface, display
+from mothic import Scene, colors, director, Surface, keys, etypes
 from mothic.visuals import text
 
 from ui.button import Button
@@ -10,7 +10,7 @@ class LevelSelectScene(Scene):
     def __init__(self):
         super().__init__()
 
-        centerx = display.get_surface().get_rect().centerx
+        centerx = director.settings['surface_size'][0] // 2
 
         with open('resources/levels/completed.txt', 'r') as file:
             completed = [int(c) for c in file.readline().strip()]
@@ -21,7 +21,7 @@ class LevelSelectScene(Scene):
                 color = colors.lime if completed[level - 1] else colors.black
 
                 self.cake.insert(
-                    Button(str(level), (80, 80), (centerx + x*150, 500 + y*150), color, onclick=lambda l=level: director.set_scene("LevelScene", l))
+                    Button(str(level), (65, 65), (centerx + x*90, 350 + y*90), color, onclick=lambda l=level: director.set_scene("LevelScene", l))
                 )
         
         self.cake.insert(
@@ -32,8 +32,8 @@ class LevelSelectScene(Scene):
         self.cake.handle_events(events)
 
         for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+            if event.type == etypes.KEYDOWN:
+                if event.key == keys.K_ESCAPE:
                     director.set_scene("MainMenuScene")
 
     def update(self):
@@ -42,12 +42,12 @@ class LevelSelectScene(Scene):
     def render(self, surface: Surface):
         surface.fill(colors.beige)
 
-        surf, rect = text.render("SOKOBAN", colors.black, "Arial", 48, True)
-        rect.center = surface.get_rect().centerx, 150
+        surf, rect = text.render("SOKOBAN", colors.black, "The Last Shuriken", 48, True)
+        rect.center = surface.get_rect().centerx, 130
         surface.blit(surf, rect)
 
-        surf, rect = text.render("Level Select", colors.black, "Arial", 24, True)
-        rect.center = surface.get_rect().centerx, 200
+        surf, rect = text.render("Level Select", colors.black, "The Last Shuriken", 24, True)
+        rect.center = surface.get_rect().centerx, 180
         surface.blit(surf, rect)
 
         self.cake.render(surface)

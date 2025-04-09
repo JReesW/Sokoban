@@ -19,16 +19,14 @@ class Button(Thing):
         self.image.fill(colors.beige)
         draw.rect(self.image, color, (0, 0, *self.rect.size), 3, 5)
 
-        surf, rect = text.render(label, colors.black, "Arial", 18)
+        surf, rect = text.render(label, colors.black, "The Last Shuriken", 16)
         rect.center = self.rect.width / 2, self.rect.height / 2
         self.image.blit(surf, rect)
 
         self.onclick = onclick
 
     def handle_events(self, events, **kwargs):
-        mouse = pygame.mouse.get_pos()
-
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                if self.onclick is not None and self.rect.collidepoint(*mouse):
+                if self.onclick is not None and self.rect.collidepoint(*event.pos):
                     self.onclick()
