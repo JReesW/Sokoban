@@ -1,4 +1,4 @@
-import pygame
+from mothic import director
 from things import Box, Player, Wall, Goal
 
 
@@ -8,7 +8,7 @@ def load_level(level):
     goals = []
     boxes = []
 
-    size = pygame.display.get_surface().get_size()
+    size = director.settings["surface_size"]
     center = size[0] // 2, size[1] // 2
 
     with open(f'resources/levels/level{level}.txt', 'r') as file:
@@ -16,8 +16,8 @@ def load_level(level):
         width = len(lines[0])
         height = len(lines)
 
-        xgen = lambda x: (x - width//2) * 74 + center[0] - (35 if width % 2 else 0)
-        ygen = lambda y: (y - height//2) * 74 + center[1]
+        xgen = lambda x: (x - width//2) * 37 + center[0] - (21 if width % 2 else 0)
+        ygen = lambda y: (y - height//2) * 37 + center[1]
 
         for y, line in enumerate(lines):
             for x, char in enumerate(line):
@@ -36,5 +36,5 @@ def load_level(level):
                     boxes.append(Box((xp, yp), (x, y), (xgen, ygen)))
                     goals.append(Goal((xp, yp), (x, y), (xgen, ygen)))
 
-    things = boxes + goals + players + walls
+    things = [*boxes, *goals, *players, *walls]
     return things, (boxes, goals, players, walls)

@@ -10,3 +10,7 @@ class Pushable(Thing):
         self.xgen, self.ygen = gens
 
         self.default_render_layer = 1
+
+    def reposition(self, pos):
+        self.coords, (x, y) = pos, pos
+        self.rect.center = self.xgen(x), self.ygen(y)

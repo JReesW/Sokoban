@@ -27,8 +27,8 @@ class WinScene(Scene):
     def render(self, surface: Surface):
         self.bg_scene.render(surface)
 
-        surf, rect = text.render("LEVEL COMPLETE", colors.black, "Arial", 48, True)
-        rect.center = surface.get_rect().centerx, 240
+        surf, rect = text.render("LEVEL COMPLETE", colors.black, "The Last Shuriken", 48, True)
+        rect.center = surface.get_rect().centerx, 80
         surface.blit(surf, rect)
 
         self.cake.render(surface)

@@ -8,3 +8,6 @@ class Box(Pushable):
 
         self.image = load_image('box')
         self._image = load_image('box')
+
+    def reset_image(self):
+        self.image = self._image.copy()
